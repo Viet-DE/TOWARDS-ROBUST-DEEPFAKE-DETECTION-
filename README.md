@@ -25,8 +25,10 @@ These three streams are aggregated using a **Cross-Modality Attention (CMA)** me
 
 ```text
 TriXNet/
+├── checkpoints/            # Saved some .pth
 ├── configs/                # Configuration files (YAML) for models and training
 ├── data/                   # Processed datasets (frames, flow, frequency, parts)(It's too large, so cannot be pushed up)
+├── logs/                   # Saved history...
 ├── datasets/               # PyTorch Dataset and DataLoader definitions
 ├── models/                 # Core network architecture
 │   ├── cma/                # Cross-Modality Attention Fusion
@@ -35,11 +37,15 @@ TriXNet/
 │   ├── lpc/                # Local Part Consistency Stream
 │   └── trixnet.py          # The complete TriXNet model
 ├── preprocessing/          # Offline feature extraction scripts
+├── results/                # Saved metrics
 ├── scripts/                # Utility scripts (e.g., dataset preparation)
 ├── splits/                 # JSON files defining Train/Val/Test splits
 ├── utils/                  # Helper functions (metrics, losses, logging)
 ├── requirements.txt        # Python dependencies
-└── README.md               # This file
+├── train.py
+├── eval.py
+├── inference.py
+└── README.md               
 ```
 ## Installation & Setup
 
