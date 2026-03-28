@@ -4,7 +4,7 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
 TriXNet is a novel three-stream neural network architecture designed to robustly detect deepfake videos by exploiting cross-modal inconsistencies. Instead of relying solely on spatial artifacts, TriXNet simultaneously analyzes three distinct modalities:
 
@@ -14,14 +14,14 @@ TriXNet is a novel three-stream neural network architecture designed to robustly
 
 These three streams are aggregated using a **Cross-Modality Attention (CMA)** mechanism (Transformer-based), allowing the network to cross-verify anomalies across different domains before making a final classification.
 
-## 🧠 Architecture
+## Architecture
 
 * **FRS (Frequency Residual Stream):** Extracts amplitude spectrum differences between consecutive frames using FFT. Features are encoded via an EfficientNet-B0 backbone adapted for 1-channel input.
 * **DOF (Dense Optical Flow Stream):** Computes dense optical flow (Farnebäck) to capture motion vectors (2-channel input).
 * **LPC (Local Part Consistency Stream):** A Siamese network that shares weights to extract features from cropped Eye and Mouth patches, concatenated to evaluate semantic synchronization.
 * **CMA Fusion:** A Multi-head Transformer Encoder that models the interactions between the F_signal, F_motion, and F_bio tokens.
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 TriXNet/
@@ -40,3 +40,60 @@ TriXNet/
 ├── utils/                  # Helper functions (metrics, losses, logging)
 ├── requirements.txt        # Python dependencies
 └── README.md               # This file
+
+## Installation & Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Viet-DE/TOWARDS-ROBUST-DEEPFAKE-DETECTION-.git
+   ```
+
+2. **Create a virtual environment (Recommended):**
+   ```bash
+   python -m venv venv
+   # On Windows:
+   .\venv\Scripts\activate
+   # On Linux/Mac:
+   source venv/bin/activate  
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Dataset Preparation
+
+This project uses the **FaceForensics++ (FF++)** dataset.
+
+1. Download the extracted frames of FF++ to your local drive.
+2. Update the `SOURCE_PATH` in `scripts/prepare_ffpp.py` to point to your downloaded dataset.
+3. Run the preparation script. This script uses **MediaPipe** to detect, crop faces (256x256), and organize them into the `data/frames/` directory, while automatically generating Train/Val/Test split configurations in `splits/`.
+
+   ```bash
+   python scripts/prepare_ffpp.py
+   ```
+
+## Usage (Work in Progress)
+
+**1. Offline Preprocessing (Extract Flow & Frequency):**
+*(Scripts for extracting Farnebäck Flow and FFT residuals will be documented here once completed).*
+
+**2. Training the Model:**
+```bash
+python train.py 
+```
+
+**3. Evaluation:**
+```bash
+python eval.py 
+```
+
+## Evaluation Metrics
+The model is evaluated based on standard Deepfake detection metrics:
+* Accuracy (ACC)
+* Area Under the Receiver Operating Characteristic Curve (AUC-ROC)
+* Equal Error Rate (EER)
+
+## Acknowledgments
+This project was developed as part of a research initiative focusing on Multi-modal Deepfake Detection. Special thanks to the creators of FaceForensics++ and MediaPipe for providing robust tools for facial analysis.
