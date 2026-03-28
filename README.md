@@ -49,7 +49,7 @@ TriXNet/
    ```
 
 2. **Create a virtual environment (Recommended):**
-   ```bash
+   ```
    python -m venv venv
    # On Windows:
    .\venv\Scripts\activate
