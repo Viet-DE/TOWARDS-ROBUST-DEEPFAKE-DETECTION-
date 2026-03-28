@@ -40,7 +40,7 @@ TriXNet/
 ├── utils/                  # Helper functions (metrics, losses, logging)
 ├── requirements.txt        # Python dependencies
 └── README.md               # This file
-
+```
 ## Installation & Setup
 
 1. **Clone the repository:**
