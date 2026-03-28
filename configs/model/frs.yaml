@@ -1,0 +1,13 @@
+frs:
+  # Frequency Residual Stream
+  backbone: "efficientnet_b0"
+  pretrained: true
+  
+  # Input: 1 channel (Grayscale Frequency Map)
+  input_channels: 1
+  
+  # Output feature dimension
+  feature_dim: 512
+  
+  # Freeze options
+  freeze_backbone: false

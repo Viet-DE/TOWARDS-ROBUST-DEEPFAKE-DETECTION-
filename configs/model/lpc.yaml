@@ -1,0 +1,23 @@
+lpc:
+  # Local Part Consistency Stream
+  backbone: "efficientnet_b0"
+  pretrained: true
+  
+  # Siamese network settings
+  siamese: true
+  
+  # Input: 3 channels (RGB)
+  input_channels: 3
+  
+  # Part-specific crop sizes 
+  eyes_size: [64, 128]
+  mouth_size: [64, 64]
+  
+  # Output feature dimension per part
+  part_feature_dim: 256
+  
+  # Combined feature dimension (256 eyes + 256 mouth -> fusion -> 512)
+  feature_dim: 512
+  
+  # Freeze options
+  freeze_backbone: false

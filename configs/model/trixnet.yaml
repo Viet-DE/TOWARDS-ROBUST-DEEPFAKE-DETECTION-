@@ -1,0 +1,21 @@
+trixnet:
+  num_classes: 2
+  
+  # Feature dimensions
+  feature_dim: 512
+  hidden_dim: 256
+  
+  # Dropout
+  dropout: 0.3
+  
+  # Branch weights (Trong so  cho loss function nếu train multi-task)
+  branch_weights:
+    frs: 1.0
+    dof: 1.0
+    lpc: 1.0
+  
+  # CMA (Cross-Modality Attention) Config
+  cma:
+    num_heads: 8
+    num_layers: 2
+    dropout: 0.1

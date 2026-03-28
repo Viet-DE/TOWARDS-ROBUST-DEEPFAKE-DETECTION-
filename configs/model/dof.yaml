@@ -1,0 +1,13 @@
+dof:
+  # Dense Optical Flow Stream
+  backbone: "efficientnet_b0"
+  pretrained: true
+  
+  # Input: 2 channels (Flow X, Flow Y)
+  input_channels: 2
+  
+  # Output feature dimension
+  feature_dim: 512
+  
+  # Freeze options
+  freeze_backbone: false

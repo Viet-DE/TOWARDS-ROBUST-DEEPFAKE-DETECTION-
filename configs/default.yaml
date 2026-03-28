@@ -1,0 +1,97 @@
+# TriXNet Master Configuration
+# Optimized for RTX 2060 (6GB VRAM)
+
+dataset:
+  name: "FFPP"
+  root_dir: "data/frames"
+  
+  split_dir: "splits"
+  train_split: "train.json"
+  val_split: "val.json"
+  test_split: "test.json"
+  
+  frequency_dir: "data/frequency"
+  flow_dir: "data/flow"
+  parts_dir: "data/parts"
+  
+  # Data Augmentation 
+  augmentation:
+    train:
+      enabled: true
+      color_jitter:
+        brightness: 0.2
+        contrast: 0.2
+        saturation: 0.2
+        hue: 0.1
+  
+  # Image Settings
+  image_size: 224
+  normalize:
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+  
+  # Dataloader Settings 
+  batch_size: 8        
+  num_workers: 4       
+  pin_memory: true
+  shuffle_train: true
+
+
+# 2. Model Configuration (TriXNet)
+model:
+  name: "trixnet"
+  num_classes: 2
+  
+  # Feature Extractor Settings
+  feature_dim: 512
+  hidden_dim: 256
+  dropout: 0.3
+  
+  # CMA (Cross-Modality Attention) Settings
+  cma:
+    num_heads: 8
+    num_layers: 2
+    dropout: 0.1
+    
+  # Deep Supervision Weights 
+  # Loss = L_final + 1.0*L_frs + 1.0*L_dof + 1.0*L_lpc
+  branch_weights:
+    frs: 1.0
+    dof: 1.0
+    lpc: 1.0
+
+
+# 3. Training Configuration
+training:
+  device: "cuda"       
+  seed: 42
+  
+  epochs: 50
+  
+  # Optimizer (Adam)
+  optimizer:
+    name: "adam"
+    lr: 0.0001
+    weight_decay: 0.0001
+    betas: [0.9, 0.999]
+  
+  # Learning Rate Scheduler (Cosine Annealing)
+  scheduler:
+    name: "cosine"
+    min_lr: 0.00001
+    warmup_epochs: 5
+    warmup_lr: 0.00001
+  
+  # Loss Function
+  loss:
+    name: "cross_entropy"
+    label_smoothing: 0.1
+  
+  # Checkpointing & Logging
+  save_dir: "checkpoints"
+  save_frequency: 5     # Luu checkpoint moi 5 epochs
+  save_best_only: true  # luon luu model co acc cao nhat
+  
+  log_dir: "logs"
+  log_frequency: 10     # Ghi log moi 10 batch
+  tensorboard: true

@@ -1,0 +1,51 @@
+dataset:
+  name: "FFPP"
+  root_dir: "data/frames"
+  
+  # Cau hinh file chia tap du lieu
+  split_dir: "splits"
+  train_split: "train.json"
+  val_split: "val.json"
+  test_split: "test.json"
+
+  manipulations:
+    - "Deepfakes"
+    - "Face2Face"
+    - "FaceShifter"
+    - "FaceSwap"
+    - "NeuralTextures"
+  
+  original_folder: "Original"
+  
+  # Output directories (noi chua cac dac trung Frequency/Flow sau nay)
+  frequency_dir: "data/frequency"
+  flow_dir: "data/flow"
+  parts_dir: "data/parts"
+  
+  # Augmentation
+  augmentation:
+    train:
+      enabled: true
+      random_horizontal_flip: 0.5
+      random_rotation: 10
+      color_jitter:
+        brightness: 0.2
+        contrast: 0.2
+        saturation: 0.2
+        hue: 0.1
+    val:
+      enabled: false
+    test:
+      enabled: false
+  
+  # Image settings
+  image_size: 224
+  normalize:
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+  
+  # Dataloader
+  batch_size: 16
+  num_workers: 4
+  pin_memory: true
+  shuffle_train: true
