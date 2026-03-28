@@ -44,7 +44,7 @@ TriXNet/
 ## Installation & Setup
 
 1. **Clone the repository:**
-   ```bash
+   ```
    git clone https://github.com/Viet-DE/TOWARDS-ROBUST-DEEPFAKE-DETECTION-.git
    ```
 
@@ -58,7 +58,7 @@ TriXNet/
    ```
 
 3. **Install dependencies:**
-   ```bash
+   ```
    pip install -r requirements.txt
    ```
 
@@ -70,7 +70,7 @@ This project uses the **FaceForensics++ (FF++)** dataset.
 2. Update the `SOURCE_PATH` in `scripts/prepare_ffpp.py` to point to your downloaded dataset.
 3. Run the preparation script. This script uses **MediaPipe** to detect, crop faces (256x256), and organize them into the `data/frames/` directory, while automatically generating Train/Val/Test split configurations in `splits/`.
 
-   ```bash
+   ```
    python scripts/prepare_ffpp.py
    ```
 
