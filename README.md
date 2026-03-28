@@ -1,30 +1,42 @@
- # TOWARDS ROBUST DEEPFAKE DETECTION: A MULTI-MODAL APPROACH USING FREQUENCY, MOTION, AND LOCAL PART CONSISTENCY
+# TriXNet: Towards Robust Deepfake Detection
 
-Đóng góp mã nguồn chính thức cho dự án: **Towards Robust Deepfake Detection**. 
-Dự án này đề xuất mô hình **Tri-XNet**, một phương pháp tiếp cận đa phương thức (multi-modal) nhằm phát hiện Deepfake một cách mạnh mẽ bằng cách khai thác thông tin từ miền tần số (frequency), chuyển động (motion), và tính nhất quán của các đặc trưng cục bộ (local part consistency).
+**Official implementation for the thesis/project:** > *"TOWARDS ROBUST DEEPFAKE DETECTION: A MULTI-MODAL APPROACH USING FREQUENCY, MOTION, AND LOCAL PART CONSISTENCY"*
 
-## 🗂 Cấu trúc thư mục (Repository Structure)
+---
 
-Dự án được tổ chức như sau:
+## 📖 Overview
 
-* `checkpoints/trixnet/`: Chứa các trọng số (weights) của mô hình đã được huấn luyện (được quản lý bằng Git LFS).
-* `configs/`: Chứa các file cấu hình YAML/JSON cho quá trình huấn luyện và đánh giá.
-* `data/`: Thư mục chứa các tệp dữ liệu sau khi chuẩn bị từ prepare_ffpp.py, do có dung lượng khá lớn nên k thể push lên.
-* `datasets/`: Chứa mã nguồn để tải và định dạng các bộ dữ liệu Deepfake phổ biến.
-* `logs/trixnet/`: Chứa file log của quá trình huấn luyện (TensorBoard logs, text logs).
-* `models/`: Định nghĩa kiến trúc mạng nơ-ron cho hệ thống đa phương thức (Tri-XNet).
-* `preprocessing/`: Các script trích xuất khuôn mặt, trích xuất quang sai, phổ tần số và chuẩn bị dữ liệu đầu vào.
-* `results/`: Lưu trữ các kết quả dự đoán, biểu đồ đánh giá (ROC, AUC) sau khi chạy test.
-* `scripts/`: Các bash script (.sh) để tự động hóa quá trình huấn luyện và kiểm thử.
-* `splits/`: Chứa các file text chia tập dữ liệu (train/val/test splits).
-* `utils/`: Các hàm tiện ích hỗ trợ (metrics, visualization, file I/O).
-* `eval.py`: Script dùng để đánh giá mô hình trên tập test.
-* `inference.py`: Script dùng để dự đoán trên một video/hình ảnh mới (single inference).
-* `train.py`: scripy train model
+TriXNet is a novel three-stream neural network architecture designed to robustly detect deepfake videos by exploiting cross-modal inconsistencies. Instead of relying solely on spatial artifacts, TriXNet simultaneously analyzes three distinct modalities:
 
-## ⚙️ Cài đặt (Installation)
+1. **Signal Integrity (Frequency):** Detects low-level GAN/Diffusion artifacts hidden in the frequency domain.
+2. **Physical Motion (Optical Flow):** Captures temporal discontinuities and unnatural movements, especially around blending boundaries.
+3. **Biological Semantics (Local Parts):** Ensures semantic consistency between local facial regions (e.g., matching the emotional state of the eyes and mouth).
 
-1. Clone repository này về máy:
-   ```bash
-   git clone [https://github.com/Viet-DE/TOWARDS-ROBUST-DEEPFAKE-DETECTION-.git](https://github.com/Viet-DE/TOWARDS-ROBUST-DEEPFAKE-DETECTION-.git)
-   cd TOWARDS-ROBUST-DEEPFAKE-DETECTION-
+These three streams are aggregated using a **Cross-Modality Attention (CMA)** mechanism (Transformer-based), allowing the network to cross-verify anomalies across different domains before making a final classification.
+
+## 🧠 Architecture
+
+* **FRS (Frequency Residual Stream):** Extracts amplitude spectrum differences between consecutive frames using FFT. Features are encoded via an EfficientNet-B0 backbone adapted for 1-channel input.
+* **DOF (Dense Optical Flow Stream):** Computes dense optical flow (Farnebäck) to capture motion vectors (2-channel input).
+* **LPC (Local Part Consistency Stream):** A Siamese network that shares weights to extract features from cropped Eye and Mouth patches, concatenated to evaluate semantic synchronization.
+* **CMA Fusion:** A Multi-head Transformer Encoder that models the interactions between the F_signal, F_motion, and F_bio tokens.
+
+## 📂 Project Structure
+
+```text
+TriXNet/
+├── configs/                # Configuration files (YAML) for models and training
+├── data/                   # Processed datasets (frames, flow, frequency, parts)
+├── datasets/               # PyTorch Dataset and DataLoader definitions
+├── models/                 # Core network architecture
+│   ├── cma/                # Cross-Modality Attention Fusion
+│   ├── dof/                # Dense Optical Flow Stream
+│   ├── frs/                # Frequency Residual Stream
+│   ├── lpc/                # Local Part Consistency Stream
+│   └── trixnet.py          # The complete TriXNet model
+├── preprocessing/          # Offline feature extraction scripts
+├── scripts/                # Utility scripts (e.g., dataset preparation)
+├── splits/                 # JSON files defining Train/Val/Test splits
+├── utils/                  # Helper functions (metrics, losses, logging)
+├── requirements.txt        # Python dependencies
+└── README.md               # This file
