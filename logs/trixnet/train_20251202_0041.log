@@ -1,0 +1,4 @@
+2025-12-02 00:41:53,886 [INFO] Device: cuda
+2025-12-02 00:41:53,924 [INFO] Data loaded: Train=21591, Val=4200
+2025-12-02 00:41:55,059 [INFO] Model created successfully.
+2025-12-02 00:42:50,960 [INFO] Training completed.
