@@ -26,7 +26,7 @@ These three streams are aggregated using a **Cross-Modality Attention (CMA)** me
 ```text
 TriXNet/
 ├── configs/                # Configuration files (YAML) for models and training
-├── data/                   # Processed datasets (frames, flow, frequency, parts)
+├── data/                   # Processed datasets (frames, flow, frequency, parts)(It's too large, so cannot be pushed up)
 ├── datasets/               # PyTorch Dataset and DataLoader definitions
 ├── models/                 # Core network architecture
 │   ├── cma/                # Cross-Modality Attention Fusion
