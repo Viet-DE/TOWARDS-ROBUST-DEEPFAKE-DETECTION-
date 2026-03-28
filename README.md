@@ -94,6 +94,7 @@ The model is evaluated based on standard Deepfake detection metrics:
 * Accuracy (ACC)
 * Area Under the Receiver Operating Characteristic Curve (AUC-ROC)
 * Equal Error Rate (EER)
+(all from `results/` :D)
 
 ## Acknowledgments
 This project was developed as part of a research initiative focusing on Multi-modal Deepfake Detection. Special thanks to the creators of FaceForensics++ and MediaPipe for providing robust tools for facial analysis.
