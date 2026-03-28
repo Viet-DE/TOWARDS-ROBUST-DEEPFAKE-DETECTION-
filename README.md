@@ -1,4 +1,5 @@
 # TriXNet: Towards Robust Deepfake Detection
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Official implementation for the thesis/project:** > *"TOWARDS ROBUST DEEPFAKE DETECTION: A MULTI-MODAL APPROACH USING FREQUENCY, MOTION, AND LOCAL PART CONSISTENCY"*
 
@@ -104,3 +105,6 @@ The model is evaluated based on standard Deepfake detection metrics:
 
 ## Acknowledgments
 This project was developed as part of a research initiative focusing on Multi-modal Deepfake Detection. Special thanks to the creators of FaceForensics++ and MediaPipe for providing robust tools for facial analysis.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
